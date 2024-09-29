@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ch_ods_vldtns.stndr_chcks_r ON CLUSTER 'main_shard'
+CREATE TABLE IF NOT EXISTS ch_ods_vldtns.stndr_chcks_r
 (
     `validation_code`                   String
     , `validation_ms`                   Int64 DEFAULT 0
@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS ch_ods_vldtns.stndr_chcks_r ON CLUSTER 'main_shard'
     , `total_rows_cnt`                  UInt32 DEFAULT 0
     , `validation_result_txt`           String
 )
-Engine = ReplicatedMergeTree('/clickhouse/tables/{shard}/ch_ods_vldtns/stndr_chcks_r', '{replica}')
+Engine = MergeTree()
 PARTITION BY validation_dt
 ORDER BY (validation_code, validation_ms);
